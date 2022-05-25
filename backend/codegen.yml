@@ -1,0 +1,17 @@
+overwrite: true
+schema: "./schema.graphql"
+documents: null
+generates:
+  ./schema.ts:
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+    config:
+      contextType: "./apolloContext#ApolloContext"
+      mappers:
+        Question: ./data/types#QuestionModel
+        Game: ./data/types#GameModel
+        Player: ./data/types#PlayerModel
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

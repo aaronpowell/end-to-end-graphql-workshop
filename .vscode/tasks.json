@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "backend",
+      "problemMatcher": [],
+      "label": "npm: dev - backend",
+      "detail": "concurrently npm:watch npm:start:ts npm:gen:watch"
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "frontend",
+      "problemMatcher": [],
+      "label": "npm: dev - frontend",
+      "detail": "concurrently npm:gen:watch npm:swa"
+    },
+    {
+      "type": "npm",
+      "script": "bootstrap",
+      "path": "backend",
+      "problemMatcher": ["$tsc"],
+      "label": "npm: bootstrap - backend",
+      "detail": "nodemon data/data-loader.ts"
+    }
+  ]
+}

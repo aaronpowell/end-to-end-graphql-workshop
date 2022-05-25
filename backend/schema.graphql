@@ -1,0 +1,78 @@
+interface Node {
+  id: ID!
+}
+
+enum GameState {
+  WaitingForPlayers
+  Started
+  Completed
+}
+
+type Question implements Node {
+  id: ID!
+  question: String!
+  correctAnswer: String!
+  answers: [String!]!
+}
+
+type Player implements Node {
+  id: ID!
+  name: String!
+  game(gameId: ID!): Game!
+  games: [Game!]!
+}
+
+type Game implements Node {
+  id: ID!
+  state: GameState
+  players: [Player!]!
+  questions: [Question!]!
+}
+
+type PlayerResult {
+  name: String!
+  question: String!
+  submittedAnswer: String!
+  correctAnswer: String!
+  answers: [String!]!
+  correct: Boolean
+}
+
+type Query {
+  game(id: ID!): Game
+  games: [Game!]!
+  playerResults(gameId: ID!): [PlayerResult!]!
+}
+
+input AddPlayerToGame {
+  gameId: ID!
+  playerName: String!
+}
+
+input SubmitAnswer {
+  gameId: ID!
+  questionId: ID!
+  answer: String!
+}
+
+type Mutation @isAuthenticated {
+  createGame: Game
+  addPlayerToGame(input: AddPlayerToGame!): Player!
+  startGame(id: ID!): Game
+  submitAnswer(input: SubmitAnswer!): Player
+}
+
+type PlayerJoined {
+  player: Player!
+  gameId: ID!
+}
+
+type Subscription {
+  playerJoined(gameId: ID!): PlayerJoined
+  gameChanged(gameId: ID!): Game!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

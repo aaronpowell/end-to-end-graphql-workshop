@@ -1,0 +1,8 @@
+subscription playerJoined($gameId: ID!) {
+  playerJoined(gameId: $gameId) {
+    player {
+      name
+      id
+    }
+  }
+}

@@ -1,0 +1,5 @@
+mutation addPlayerScreen($id: ID!, $name: String!) {
+  addPlayerToGame(input: { gameId: $id, playerName: $name }) {
+    id
+  }
+}

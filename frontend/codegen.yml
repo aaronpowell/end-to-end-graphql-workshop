@@ -1,0 +1,13 @@
+overwrite: true
+schema: "http://localhost:4000/api/graphql"
+# schema: "../backend/schema.graphql"
+documents: "src/**/*.graphql"
+generates:
+  src/schema.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typed-document-node"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

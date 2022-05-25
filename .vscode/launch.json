@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "name": "launch:backend",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "dev", "--workspace", "backend"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "launch:frontend",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "dev", "--workspace", "frontend"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "launch:all",
+      "configurations": ["launch:backend", "launch:frontend"]
+    }
+  ]
+}
