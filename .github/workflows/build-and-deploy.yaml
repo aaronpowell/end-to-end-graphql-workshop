@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 
 env:
+  ACR_REGISTRY: endtoendgraphql.azurecr.io
   IMAGE_NAME: ${{ github.repository }}
 
 permissions:
@@ -33,11 +34,11 @@ jobs:
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
-      - name: Log into registry ${{ secrets.ACR_REGISTRY }}
+      - name: Log into registry ${{ env.ACR_REGISTRY }}
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
-          registry: ${{ secrets.ACR_REGISTRY }}
+          registry: ${{ env.ACR_REGISTRY }}
           username: ${{ secrets.ACR_USER }}
           password: ${{ secrets.ACR_PASSWORD }}
 
@@ -47,7 +48,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ secrets.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}
+          images: ${{ env.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -67,7 +68,7 @@ jobs:
 
       - name: Output image tag
         id: image-tag
-        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ secrets.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
+        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
 
   deploy:
     runs-on: ubuntu-latest
@@ -95,5 +96,5 @@ jobs:
           resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           template: ./deploy/main.bicep
-          parameters: minReplicas=0 backendImage='${{ needs.build-backend.outputs.containerImage-backend }}' backendPort=4000 containerRegistry=${{ secrets.ACR_REGISTRY }} containerRegistryUsername=${{ secrets.ACR_USER }} containerRegistryPassword=${{ secrets.ACR_PASSWORD }}
+          parameters: minReplicas=0 backendImage='${{ needs.build-backend.outputs.containerImage-backend }}' backendPort=4000 containerRegistry=${{ env.ACR_REGISTRY }} containerRegistryUsername=${{ secrets.ACR_USER }} containerRegistryPassword=${{ secrets.ACR_PASSWORD }}
           failOnStdErr: false
