@@ -21,7 +21,10 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "ms-azuretools.vscode-cosmosdb",
-    "apollographql.vscode-apollo"
+    "apollographql.vscode-apollo",
+    "ms-azuretools.vscode-azurestaticwebapps",
+    "ms-azuretools.vscode-azurecontainerapps",
+    "ms-azuretools.vscode-bicep"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
