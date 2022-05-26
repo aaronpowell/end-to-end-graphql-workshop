@@ -26,7 +26,10 @@ async function setupData() {
   const container = await getContainer();
 
   const questions = JSON.parse(await readFile("./trivia.json", "utf-8")).map(
-    (q) => ({ operationType: BulkOperationType.Create, resourceBody: q })
+    (q: Record<string, unknown>) => ({
+      operationType: BulkOperationType.Create,
+      resourceBody: q,
+    })
   );
 
   try {

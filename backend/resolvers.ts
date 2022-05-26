@@ -198,7 +198,7 @@ export const resolvers: Resolvers = {
   },
   Subscription: {
     playerJoined: {
-      subscribe: withFilter<unknown, PlayerJoined, ApolloContext, PlayerJoined>(
+      subscribe: withFilter(
         () => pubsub.asyncIterator<PlayerJoined>(EVENT_PLAYER_JOINED),
         (
           payload: { playerJoined: PlayerJoined },
@@ -207,9 +207,11 @@ export const resolvers: Resolvers = {
         ) =>
           variables.gameId === payload.playerJoined.gameId &&
           payload.playerJoined.player.id !== context.user.userId
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ) as any,
     },
     gameChanged: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       subscribe: () => pubsub.asyncIterator(EVENT_GAME_CHANGED) as any,
     },
   },
