@@ -95,11 +95,5 @@ jobs:
           resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           template: ./deploy/main.bicep
-          parameters: |
-            minReplicas=0 \
-            backendImage='${{ needs.build-backend.outputs.containerImage-backend }}' \
-            backendPort=4000 \
-            containerRegistry=${{ secrets.ACR_REGISTRY }} \
-            containerRegistryUsername=${{ secrets.ACR_USER }} \
-            containerRegistryPassword=${{ secrets.ACR_PASSWORD }}
+          parameters: minReplicas=0 backendImage='${{ needs.build-backend.outputs.containerImage-backend }}' backendPort=4000 containerRegistry=${{ secrets.ACR_REGISTRY }} containerRegistryUsername=${{ secrets.ACR_USER }} containerRegistryPassword=${{ secrets.ACR_PASSWORD }}
           failOnStdErr: false
