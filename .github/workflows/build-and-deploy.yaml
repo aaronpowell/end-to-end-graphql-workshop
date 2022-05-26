@@ -84,16 +84,22 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Deploy bicep
+      - name: Ensure resource group exists
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az group create -g ${{ secrets.RESOURCE_GROUP }} -l canadacentral
-            az deployment group create -g ${{ secrets.RESOURCE_GROUP }} -f ./deploy/main.bicep \
-             -p \
-                minReplicas=0 \
-                backendImage='${{ needs.build-backend.outputs.containerImage-backend }}' \
-                backendPort=4000 \
-                containerRegistry=${{ secrets.ACR_REGISTRY }} \
-                containerRegistryUsername=${{ secrets.ACR_USER }} \
-                containerRegistryPassword=${{ secrets.ACR_PASSWORD }}
+            az group create -g ${{ secrets.RESOURCE_GROUP }} -l ${{ secrets.RESOURCE_GROUP_LOCATION }}
+      - name: Deploy Bicep
+        uses: azure/arm-deploy@v1
+        with:
+          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          template: ./deploy/main.bicep
+          parameters: |
+            minReplicas=0 \
+            backendImage='${{ needs.build-backend.outputs.containerImage-backend }}' \
+            backendPort=4000 \
+            containerRegistry=${{ secrets.ACR_REGISTRY }} \
+            containerRegistryUsername=${{ secrets.ACR_USER }} \
+            containerRegistryPassword=${{ secrets.ACR_PASSWORD }}
+          failOnStdErr: false
