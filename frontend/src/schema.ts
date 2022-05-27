@@ -122,17 +122,11 @@ export type SubmitAnswer = {
 export type Subscription = {
   __typename?: 'Subscription';
   gameChanged: Game;
-  nextQuestion?: Maybe<Question>;
   playerJoined?: Maybe<PlayerJoined>;
 };
 
 
 export type SubscriptionGameChangedArgs = {
-  gameId: Scalars['ID'];
-};
-
-
-export type SubscriptionNextQuestionArgs = {
   gameId: Scalars['ID'];
 };
 

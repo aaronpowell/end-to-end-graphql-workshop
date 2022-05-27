@@ -18,6 +18,9 @@ param registryPassword string = 'registry-password'
 param databaseName string = 'trivia'
 param containerName string = 'game'
 
+param swaName string
+param swaSku string = 'Free'
+
 // Container Apps Environment 
 module environment 'environment.bicep' = {
   name: '${deployment().name}--environment'
@@ -79,6 +82,15 @@ module backendService 'container-http.bicep' = {
         value: containerRegistryPassword
       }
     ]
+  }
+}
+
+module swa 'swa.bicep' = {
+  name: swaName
+  params: {
+    location: location
+    sku: swaSku
+    name: swaName
   }
 }
 
