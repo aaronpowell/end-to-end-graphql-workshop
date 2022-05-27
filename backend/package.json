@@ -4,7 +4,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "start": "node dist/index.js",
-    "start:ts": "nodemon index.ts",
+    "start:ts": "nodemon src/index.ts",
     "dev": "concurrently npm:watch npm:start:ts npm:gen:watch",
     "gen": "graphql-codegen --config codegen.yml",
     "gen:watch": "graphql-codegen --config codegen.yml --watch",

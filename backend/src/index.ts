@@ -19,7 +19,7 @@ import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
 import cors from "cors";
 
-const typeDefs = loadFilesSync(join(__dirname, "schema.graphql"));
+const typeDefs = loadFilesSync(join(__dirname, "..", "schema.graphql"));
 
 const { isAuthenticatedDirectiveTransformer, isAuthenticatedTypeDefs } =
   isAuthenticatedDirective("isAuthenticated");
