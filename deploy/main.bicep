@@ -85,13 +85,13 @@ module backendService 'container-http.bicep' = {
   }
 }
 
-// module staticWebApp 'swa.bicep' = {
-//   name: '${deployment().name}--swa'
-//   params: {
-//     location: 'westus2'
-//     sku: swaSku
-//     name: swaName
-//   }
-// }
+module staticWebApp 'swa.bicep' = {
+  name: '${deployment().name}--swa'
+  params: {
+    location: 'westus2'
+    sku: swaSku
+    name: swaName
+  }
+}
 
 output backendFqdn string = backendService.outputs.fqdn
