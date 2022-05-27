@@ -138,7 +138,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            echo SWA_DEPLOYMENT_TOKEN=(az staticwebapp secrets list -n ${{ env.SWA_NAME }} -o tsv --query properties.apiKey) >> $GITHUB_ENV
+            echo SWA_DEPLOYMENT_TOKEN=$(az staticwebapp secrets list -n ${{ env.SWA_NAME }} -o tsv --query properties.apiKey) >> $GITHUB_ENV
 
       - uses: actions/download-artifact@v3
         with:
