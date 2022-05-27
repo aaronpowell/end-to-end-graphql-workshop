@@ -90,7 +90,7 @@ module staticWebApp 'swa.bicep' = {
   params: {
     location: 'westus2'
     sku: swaSku
-    swaName: swaName
+    name: swaName
   }
 }
 
