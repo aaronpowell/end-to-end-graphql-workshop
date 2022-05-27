@@ -94,7 +94,7 @@ jobs:
 
       - name: Build
         run: |
-          VITE_GRAPHQL_WS_ENDPOINT=(echo ${{ env.VITE_GRAPHQL_HTTP_ENDPOINT }} | sed -e 's/http/ws/g')
+          VITE_GRAPHQL_WS_ENDPOINT=(echo "${{ env.VITE_GRAPHQL_HTTP_ENDPOINT }}" | sed -e 's/http/ws/g')
 
           npm run gen -w frontend
           npm run build -w frontend
