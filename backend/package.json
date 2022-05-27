@@ -3,7 +3,6 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "prestart": "npm run build",
     "start": "node dist/index.js",
     "start:ts": "nodemon index.ts",
     "dev": "concurrently npm:watch npm:start:ts npm:gen:watch",
