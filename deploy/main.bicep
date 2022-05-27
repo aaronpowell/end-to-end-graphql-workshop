@@ -86,7 +86,7 @@ module backendService 'container-http.bicep' = {
 }
 
 module swa 'swa.bicep' = {
-  name: swaName
+  name: '${deployment().name}--swa'
   params: {
     location: 'westus2'
     sku: swaSku
