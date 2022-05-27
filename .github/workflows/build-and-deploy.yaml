@@ -77,8 +77,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: build-frontend
-
-    env: VITE_GRAPHQL_HTTP_ENDPOINT=${{ secrets.BACKEND_HOST  }}
+    env:
+      VITE_GRAPHQL_HTTP_ENDPOINT: ${{ secrets.BACKEND_HOST }}
 
     steps:
       - name: Checkout repository
