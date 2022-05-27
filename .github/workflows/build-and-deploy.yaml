@@ -73,13 +73,12 @@ jobs:
         id: image-tag
         run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
 
-  build-backend:
+  build-frontend:
     runs-on: ubuntu-latest
     environment:
-      name: build-backend
+      name: build-frontend
 
-    env:
-      VITE_GRAPHQL_HTTP_ENDPOINT=${{ secrets.BACKEND_HOST  }}
+    env: VITE_GRAPHQL_HTTP_ENDPOINT=${{ secrets.BACKEND_HOST  }}
 
     steps:
       - name: Checkout repository
