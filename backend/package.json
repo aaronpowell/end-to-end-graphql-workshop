@@ -8,7 +8,7 @@
     "dev": "concurrently npm:watch npm:start:ts npm:gen:watch",
     "gen": "graphql-codegen --config codegen.yml",
     "gen:watch": "graphql-codegen --config codegen.yml --watch",
-    "bootstrap": "ts-node data/data-loader.ts"
+    "bootstrap": "ts-node src/data/data-loader.ts"
   },
   "dependencies": {
     "@aaronpowell/static-web-apps-api-auth": "^0.1.3",
