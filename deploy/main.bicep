@@ -19,7 +19,7 @@ param databaseName string = 'trivia'
 param containerName string = 'game'
 
 param swaName string
-param swaSku string = 'Free'
+param swaSku string = 'Standard'
 
 // Container Apps Environment 
 module environment 'environment.bicep' = {
