@@ -92,6 +92,7 @@ jobs:
       - name: Build
         run: |
           VITE_GRAPHQL_WS_ENDPOINT=$(echo "${{ secrets.BACKEND_HOST }}" | sed -e 's/http/ws/g')
+          echo VITE_GRAPHQL_WS_ENDPOINT=$VITE_GRAPHQL_WS_ENDPOINT >> .env
 
           npm run gen -w frontend
           npm run build -w frontend
