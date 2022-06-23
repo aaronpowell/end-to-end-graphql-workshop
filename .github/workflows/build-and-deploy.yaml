@@ -10,7 +10,6 @@ on:
 env:
   ACR_REGISTRY: endtoendgraphql.azurecr.io
   IMAGE_NAME: ${{ github.repository }}
-  GRAPHQL_SCHEMA_PATH: ${{ secrets.BACKEND_HOST }}/api/graphql
   NODE_VERSION: 16.x
   SWA_NAME: graphql-end-to-end-workshop
 
@@ -77,8 +76,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: build-frontend
-    # env:
-    #   VITE_GRAPHQL_HTTP_ENDPOINT: ${{ secrets.BACKEND_HOST }}
 
     steps:
       - name: Checkout repository
