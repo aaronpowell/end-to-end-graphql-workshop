@@ -1,6 +1,5 @@
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { ApolloServer } from "apollo-server-express";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cosmosDataSources, inMemoryDataSources } from "./data/index";
 import { join } from "path";
 import { loadFilesSync } from "@graphql-tools/load-files";
@@ -33,6 +32,9 @@ async function startApolloServer(baseSchema: GraphQLSchema) {
   const app = express();
   app.use(cors());
   const httpServer = http.createServer(app);
+  const dataSources = process.env.CosmosDB
+    ? cosmosDataSources
+    : inMemoryDataSources;
 
   const schema = isAuthenticatedDirectiveTransformer(baseSchema);
 
@@ -67,7 +69,7 @@ async function startApolloServer(baseSchema: GraphQLSchema) {
         const req = { headers: { "x-ms-client-principal": swaCookie } };
 
         return {
-          dataSources: cosmosDataSources(),
+          dataSources: dataSources(),
           user: getUserInfo(req),
           isAuthenticated: isAuthenticated(req),
         };
@@ -98,14 +100,15 @@ async function startApolloServer(baseSchema: GraphQLSchema) {
       user: getUserInfo(req),
       isAuthenticated: isAuthenticated(req),
     }),
-    dataSources: cosmosDataSources,
+    dataSources,
   });
   await server.start();
   server.applyMiddleware({ app, path: "/api/graphql" });
-  await new Promise<void>((resolve) =>
-    httpServer.listen({ port: process.env.PORT || 4000 }, resolve)
+  const options = { port: process.env.PORT || 4000 };
+  await new Promise<void>((resolve) => httpServer.listen(options, resolve));
+  console.log(
+    `🚀 Server ready at http://localhost:${options.port}${server.graphqlPath}`
   );
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
 startApolloServer(schema);
