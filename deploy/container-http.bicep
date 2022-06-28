@@ -35,7 +35,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
       ingress: enableIngress ? {
         external: isExternalIngress
         targetPort: containerPort
-        transport: 'auto'
+        transport: 'http'
       } : null
       dapr: {
         enabled: true
