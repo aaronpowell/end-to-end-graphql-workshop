@@ -44,6 +44,18 @@ async function startApolloServer(baseSchema: GraphQLSchema) {
     path: "/api/graphql",
   });
 
+  wsServer.on("connection", (socket, req) => {
+    console.log("connection", { socket, req });
+  });
+
+  wsServer.on("error", (err) => {
+    console.error(err);
+  });
+
+  wsServer.on("headers", (headers, req) => {
+    console.log("headers", { headers, req });
+  });
+
   // Hand in the schema we just created and have the
   // WebSocketServer start listening.
   const serverCleanup = useServer(
