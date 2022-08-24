@@ -27,6 +27,8 @@ The application consists of two parts:
 
 ## Running the application
 
+Before running the application the first time, you'll need to seed the database with the sample data, which can be done from a terminal with `npm run --workspace backend bootstrap`, via the `bootstrap` task, or via the `bootstrap` debugger.
+
 To run the application, use the VS Code debugger and select `launch:all`, which will start both the backend and the frontend as the same time, as well as attach the debuggers.
 
 For manually starting the application, run `npm run dev --workspace <frontend|backend>`, indicating which workspace you want to start.

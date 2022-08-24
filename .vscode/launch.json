@@ -15,6 +15,14 @@
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
+    },
+    {
+      "name": "bootrap",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "bootstrap", "--workspace", "backend"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     }
   ],
   "compounds": [
