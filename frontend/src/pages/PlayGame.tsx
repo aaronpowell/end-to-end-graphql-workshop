@@ -75,19 +75,20 @@ const PlayGame = () => {
 
   return (
     <div>
-      <h1>Play game {id}!</h1>
+      <h1>Play game {id}</h1>
       <h2>Time remaining: {timeRemaining}</h2>
       <h2 dangerouslySetInnerHTML={{ __html: question.question }}></h2>
-      <ul>
+      <ul className="questions">
         {question.answers.map((a) => {
           return (
-            <li key={a}>
+            <li key={a} onClick={() => setAnswer(a)}>
               <label>
                 <input
                   type="radio"
                   value={a}
                   onChange={() => setAnswer(a)}
                   name="answer"
+                  checked={answer === a}
                 />
                 <span dangerouslySetInnerHTML={{ __html: a }}></span>
               </label>

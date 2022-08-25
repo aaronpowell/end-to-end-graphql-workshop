@@ -40,3 +40,30 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.questions {
+  display: flex;
+  gap: 10px;
+  margin: 0 auto;
+  width: 778px;
+  margin-bottom: 20px;
+}
+
+.questions li {
+  height: 100px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  list-style: none;
+  flex: auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #72c5c5;
+}
+
+.questions li label,
+.questions li span {
+  flex: auto;
+}

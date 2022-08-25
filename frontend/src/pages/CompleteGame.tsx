@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import React from "react";
 import { Navigate, useParams } from "react-router-dom";
+import { StartNewGame } from "../components/StartNewGame";
 import { PlayerResultsDocument } from "../schema";
 
 const CompleteGame = () => {
@@ -22,7 +22,7 @@ const CompleteGame = () => {
 
   return (
     <div>
-      <h1>Game over man, game over!</h1>
+      <h1>Game over man, game over</h1>
       {data.playerResults.map((result) => {
         return (
           <div key={result.question}>
@@ -32,7 +32,7 @@ const CompleteGame = () => {
                 dangerouslySetInnerHTML={{ __html: result.question }}
               ></span>{" "}
             </h2>
-            <ul>
+            <ul className="questions">
               {result.answers.map((a) => {
                 return (
                   <li
@@ -49,6 +49,7 @@ const CompleteGame = () => {
           </div>
         );
       })}
+      <StartNewGame />
     </div>
   );
 };
