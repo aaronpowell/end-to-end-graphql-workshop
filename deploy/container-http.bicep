@@ -1,18 +1,18 @@
 param containerAppName string
-param location string 
-param environmentName string 
+param location string
+param environmentName string
 param containerImage string
 param containerPort int
 param isExternalIngress bool
 param containerRegistry string
 param containerRegistryUsername string
 param isPrivateRegistry bool
-param enableIngress bool 
+param enableIngress bool
+@secure()
 param registryPassword string
 param minReplicas int = 0
 param secrets array = []
 param env array = []
-
 
 resource environment 'Microsoft.App/managedEnvironments@2022-01-01-preview' existing = {
   name: environmentName
