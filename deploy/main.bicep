@@ -14,7 +14,7 @@ param containerRegistryUsername string = 'testUser'
 @secure()
 param containerRegistryPassword string = ''
 @secure()
-param registryPassword string = ''
+param registryPassword string = 'registry-password'
 
 param databaseName string = 'trivia'
 param containerName string = 'game'
