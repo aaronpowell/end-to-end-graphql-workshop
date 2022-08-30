@@ -1,8 +1,9 @@
 import { useClientPrincipal } from "@aaronpowell/react-static-web-apps-auth";
-import { useMutation, useSubscription } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { AddPlayerScreenDocument, PlayerJoinedDocument } from "../schema";
+import { OtherPlayers } from "../components/OtherPlayers";
+import { AddPlayerScreenDocument } from "../schema";
 
 const JoinGame = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,8 +13,6 @@ const JoinGame = () => {
   const [addPlayerToGame, { loading, data }] = useMutation(
     AddPlayerScreenDocument
   );
-
-  const [playerNames, setPlayerNames] = useState<string[]>([]);
 
   useEffect(() => {
     if (data) {
@@ -30,16 +29,6 @@ const JoinGame = () => {
   if (!id) {
     return <Navigate to="/" replace={true} />;
   }
-
-  useSubscription(PlayerJoinedDocument, {
-    variables: { gameId: id },
-    onSubscriptionData: (opts) => {
-      const name = opts.subscriptionData.data?.playerJoined?.player.name;
-      if (name) {
-        setPlayerNames((value) => [...value, name]);
-      }
-    },
-  });
 
   if (!clientPrincipal.loaded) {
     return (
@@ -72,12 +61,7 @@ const JoinGame = () => {
         >
           Join the game
         </button>
-        <h2>Your competitors</h2>
-        <ul>
-          {playerNames.map((player) => (
-            <li key={player}>{player}</li>
-          ))}
-        </ul>
+        {import.meta.env.VITE_MULTIPLAYER && <OtherPlayers id={id} />}
       </div>
     </div>
   );
