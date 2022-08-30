@@ -20,11 +20,17 @@ const WaitingToStart = () => {
     },
   });
 
-  const [startGame, { loading }] = useMutation(StartGameDocument, {
-    variables: { id },
-  });
+  const [startGame, { loading, data: startGameData }] = useMutation(
+    StartGameDocument,
+    {
+      variables: { id },
+    }
+  );
 
-  if (data?.gameChanged.state === GameState.Started) {
+  if (
+    data?.gameChanged.state === GameState.Started ||
+    startGameData?.startGame?.state === GameState.Started
+  ) {
     return <Navigate to={`/game/play/${id}`} replace={true} />;
   }
 
